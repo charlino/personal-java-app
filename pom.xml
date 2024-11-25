@@ -1,78 +1,33 @@
-// File: CalculatorServlet.java
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+<project xmlns="<http://maven.apache.org/POM/4.0.0>"
+         xmlns:xsi="<http://www.w3.org/2001/XMLSchema-instance>"
+         xsi:schemaLocation="<http://maven.apache.org/POM/4.0.0> <http://maven.apache.org/xsd/maven-4.0.0.xsd>">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>personal-java-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Simple Calculator</name>
 
-@WebServlet("/calculator")
-public class CalculatorServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.getWriter().println("<html><body>");
-        response.getWriter().println("<h1>Simple Calculator</h1>");
-        response.getWriter().println("<form method='POST'>");
-        response.getWriter().println("Number 1: <input type='text' name='num1'><br>");
-        response.getWriter().println("Number 2: <input type='text' name='num2'><br>");
-        response.getWriter().println("Operation: ");
-        response.getWriter().println("<select name='operation'>");
-        response.getWriter().println("<option value='add'>Add</option>");
-        response.getWriter().println("<option value='subtract'>Subtract</option>");
-        response.getWriter().println("<option value='multiply'>Multiply</option>");
-        response.getWriter().println("<option value='divide'>Divide</option>");
-        response.getWriter().println("</select><br>");
-        response.getWriter().println("<input type='submit' value='Calculate'>");
-        response.getWriter().println("</form>");
-        response.getWriter().println("</body></html>");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        double num1 = Double.parseDouble(request.getParameter("num1"));
-        double num2 = Double.parseDouble(request.getParameter("num2"));
-        String operation = request.getParameter("operation");
-
-        double result = 0;
-        String message = null;
-
-        switch (operation) {
-            case "add":
-                result = num1 + num2;
-                message = "Addition";
-                break;
-            case "subtract":
-                result = num1 - num2;
-                message = "Subtraction";
-                break;
-            case "multiply":
-                result = num1 * num2;
-                message = "Multiplication";
-                break;
-            case "divide":
-                if (num2 != 0) {
-                    result = num1 / num2;
-                    message = "Division";
-                } else {
-                    message = "Error: Division by zero!";
-                }
-                break;
-            default:
-                message = "Invalid Operation!";
-        }
-
-        response.getWriter().println("<html><body>");
-        response.getWriter().println("<h1>Simple Calculator - Result</h1>");
-        if (message != null && message.startsWith("Error")) {
-            response.getWriter().println("<p style='color: red;'>" + message + "</p>");
-        } else {
-            response.getWriter().println("<p>" + message + ": " + result + "</p>");
-        }
-        response.getWriter().println("<a href='/calculator'>Back</a>");
-        response.getWriter().println("</body></html>");
-    }
-}
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
